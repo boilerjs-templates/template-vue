@@ -36,11 +36,7 @@ module.exports = function({ BOILER_PATH, webpack, plugins }) {
 				{
 					test: /\.js$/i,
 					loader: 'babel-loader',
-					exclude: [/node_modules/, /boiler\.js/],
-					query: {
-						presets: [ path.resolve(BOILER_PATH, 'node_modules/babel-preset-es2015') ],
-						plugins: [ path.resolve(BOILER_PATH, 'node_modules/babel-plugin-transform-runtime') ]
-					}
+					exclude: /node_modules/
 				},
 				{
 					test: /\.tpl$/i,
@@ -65,13 +61,19 @@ module.exports = function({ BOILER_PATH, webpack, plugins }) {
 			]
 		},
 
+		babel: {
+			presets: [ path.resolve(BOILER_PATH, 'node_modules/babel-preset-es2015') ],
+			plugins: [ path.resolve(BOILER_PATH, 'node_modules/babel-plugin-transform-runtime') ]
+		},
+
 		resolve: {
 			root: [
 				__dirname,
 				path.resolve(__dirname, 'application'),
 				path.resolve(__dirname, 'node_modules'),
 				path.resolve(BOILER_PATH, 'node_modules')
-			]
+			],
+			extensions: ['', '.js', '.vue']
 		},
 
 		resolveLoader: {
