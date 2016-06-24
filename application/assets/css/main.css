@@ -1,0 +1,9 @@
+@import url('../../../node_modules/bootstrap/dist/css/bootstrap.min.css');
+
+html, body {
+	height: 100%;
+}
+
+body, select, input {
+	color: #666;
+}
