@@ -1,15 +1,15 @@
 var path = require('path');
-var pkg = require('./package.json');
+var pkg = require('../package.json');
 
 module.exports = function({ BOILER_PATH, webpack, plugins }) {
 
 	return {
 		entry: [
-			path.resolve(__dirname, 'application/main.js')
+			path.resolve(__dirname, '../application/main.js')
 		],
 
 		output: {
-			path: path.resolve(__dirname, 'dist'),
+			path: path.resolve(__dirname, '../dist'),
 			filename: 'application-[hash].js'
 		},
 
@@ -39,18 +39,14 @@ module.exports = function({ BOILER_PATH, webpack, plugins }) {
 					exclude: /node_modules/
 				},
 				{
-					test: /\.tpl$/i,
-					loader: 'webpack-template-loader'
-				},
-				{
 					test: /\.css$/i,
-					loader: plugins.ExtractTextPlugin.extract(['css-loader'])
+					loader: plugins.ExtractTextPlugin.extract(['css-loader'], { publicPath: '../../' })
 				},
 				{
 					test: /\.(eot|woff2?|ttf|svg|png|jpg)(\?.*)*$/i,
 					loader: 'file-loader',
 					query: {
-						name: 'img/[name].[ext]'
+						name: 'assets/img/[name].[ext]'
 					}
 				},
 				{
@@ -68,9 +64,9 @@ module.exports = function({ BOILER_PATH, webpack, plugins }) {
 
 		resolve: {
 			root: [
-				__dirname,
-				path.resolve(__dirname, 'application'),
-				path.resolve(__dirname, 'node_modules'),
+				path.resolve(__dirname, '../'),
+				path.resolve(__dirname, '../application'),
+				path.resolve(__dirname, '../node_modules'),
 				path.resolve(BOILER_PATH, 'node_modules')
 			],
 			extensions: ['', '.js', '.vue']
@@ -81,7 +77,7 @@ module.exports = function({ BOILER_PATH, webpack, plugins }) {
 		},
 
 		plugins: [
-			new plugins.CleanWebpackPlugin(['dist'], { root: __dirname, verbose: false }),
+			new plugins.CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../'), verbose: false }),
 			new webpack.DefinePlugin({
 				'process.env': {
 					NODE_ENV: JSON.stringify('production'),
@@ -96,8 +92,8 @@ module.exports = function({ BOILER_PATH, webpack, plugins }) {
 				pkg.name +  ' ' + pkg.version + ' - ' + pkg.description,
 				'\nDevelopers:\n',
 				pkg.authors.map(function(a) { return '\t' + a;}).join('\n')
-			].join('\n'), {entryOnly: true}),
-			new plugins.ExtractTextPlugin('application-[hash].css'),
+			].join('\n'), { entryOnly: true }),
+			new plugins.ExtractTextPlugin('assets/css/application-[hash].css'),
 			new plugins.HtmlWebpackPlugin({
 				filename: 'index.html',
 				template: 'index.html',

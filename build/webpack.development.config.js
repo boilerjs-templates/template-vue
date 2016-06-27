@@ -6,11 +6,11 @@ module.exports = function({ BOILER_PATH, HOST, PORT, webpack, plugins }) {
 		entry: [
 			`webpack-dev-server/client?http://${HOST}:${PORT}/`,
 			'webpack/hot/dev-server',
-			path.resolve(__dirname, 'application/main.js')
+			path.resolve(__dirname, '../application/main.js')
 		],
 
 		output: {
-			path: path.resolve(__dirname, 'dist'),
+			path: path.resolve(__dirname, '../dist'),
 			filename: 'application-[hash].js'
 		},
 
@@ -27,10 +27,6 @@ module.exports = function({ BOILER_PATH, HOST, PORT, webpack, plugins }) {
 					exclude: /node_modules/
 				},
 				{
-					test: /\.tpl$/i,
-					loader: 'webpack-template-loader'
-				},
-				{
 					test: /\.css$/i,
 					loaders: ['style-loader', 'css-loader']
 				},
@@ -38,7 +34,7 @@ module.exports = function({ BOILER_PATH, HOST, PORT, webpack, plugins }) {
 					test: /\.(eot|woff2?|ttf|svg|png|jpg)(\?.*)*$/i,
 					loader: 'file-loader',
 					query: {
-						name: 'img/[name].[ext]'
+						name: 'assets/img/[name].[ext]'
 					}
 				},
 				{
@@ -56,9 +52,9 @@ module.exports = function({ BOILER_PATH, HOST, PORT, webpack, plugins }) {
 
 		resolve: {
 			root: [
-				__dirname,
-				path.resolve(__dirname, 'application'),
-				path.resolve(__dirname, 'node_modules'),
+				path.resolve(__dirname, '../'),
+				path.resolve(__dirname, '../application'),
+				path.resolve(__dirname, '../node_modules'),
 				path.resolve(BOILER_PATH, 'node_modules')
 			],
 			extensions: ['', '.js', '.vue']
