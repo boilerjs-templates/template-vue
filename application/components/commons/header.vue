@@ -2,7 +2,7 @@
 	<header class="navbar navbar-default">
 		<div class="container">
 			<a href="#/" class="navbar-brand">
-				<img src="../../assets/img/logo.png" class="pull-left" alt="logo">
+				<img src="../../../assets/img/logo.png" class="pull-left" alt="logo">
 				<span><%= appName %></span>
 				<span style="color: tomato;">{{env}}</span>
 			</a>
