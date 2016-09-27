@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import configRouter from 'router';
-import VApp from 'components/commons/app.vue';
+import VApp from 'views/commons/app.vue';
 import 'assets/css/main.css';
 
 Vue.use(VueRouter);
